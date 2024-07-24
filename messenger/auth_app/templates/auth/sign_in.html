@@ -1,0 +1,17 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Sign In
+{% endblock %}
+
+{% block body %}
+<div>
+  <h1>Sign In</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Sign In </button>
+
+  </form>
+</div>
+{% endblock %}

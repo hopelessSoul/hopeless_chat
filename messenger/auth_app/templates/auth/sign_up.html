@@ -1,0 +1,17 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Sign up
+{% endblock %}
+
+{% block body %}
+<div>
+  <h1>Registration</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Sign Up </button>
+
+  </form>
+</div>
+{% endblock %}
