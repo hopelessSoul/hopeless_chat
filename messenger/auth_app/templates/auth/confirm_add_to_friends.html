@@ -1,0 +1,16 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Add friend
+{% endblock %}
+
+{% block body %}
+<div>
+  <form method="POST">
+    {% csrf_token %}
+    <h2>Do you want to add {{ friend_request.from_user }} to your friends list?</h2>
+    <a href="{% url 'auth_app:users_list' %}"><button>Return</button></a>
+    <button type="submit">Confirm</button>
+  </form>
+</div>
+{% endblock %}

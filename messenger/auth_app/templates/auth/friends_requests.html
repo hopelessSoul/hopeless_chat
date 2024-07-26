@@ -1,0 +1,17 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Friends requests
+{% endblock %}
+
+{% block body %}
+<div>
+  {% if friends_requests %}
+    {% for request in friends_requests %}
+      <a href="{% url 'auth_app:confirm_friend' pk=request.pk %}"><p>{{ request.from_user }}</p></a>
+    {% endfor %}
+  {% else %}
+    <h3> You have no friends requests</h3>
+  {% endif %}
+</div>
+{% endblock %}

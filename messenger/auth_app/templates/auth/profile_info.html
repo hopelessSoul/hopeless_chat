@@ -1,0 +1,22 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+{{ user.username }} info
+{% endblock %}
+
+{% block body %}
+<div>
+  {% if err_message %}
+  <h2>{{ err_message }}</h2>
+  {% else %}
+  <h2>{{ profile.name }}</h2>
+  <p>Username: {{ profile.username }}</p>
+  <p>Email: {{ profile.email }}</p>
+  {% if not is_friends %}
+  <a href="{% url 'auth_app:send_friend_request' pk=profile.pk %}"><p>Add to friends</p></a>
+  {% endif %}
+  <a href="{% url 'auth_app:users_list' %}">Users list</a>
+
+  {% endif %}
+</div>
+{% endblock %}

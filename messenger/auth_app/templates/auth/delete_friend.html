@@ -1,0 +1,14 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+<div>
+  <form method="POST">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete friend</h2>
+    <button type="submit">Delete</button>
+  </form>
+</div>
+{% endblock %}

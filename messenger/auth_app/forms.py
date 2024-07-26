@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 
+from auth_app.models import Profile
+
 
 class SignUpForm(forms.Form):
     username = forms.CharField(min_length=3, max_length=50)
@@ -9,6 +11,7 @@ class SignUpForm(forms.Form):
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    avatar = forms.ImageField(widget=forms.ClearableFileInput)
 
     def validate_username(self):
         username = self.cleaned_data['username']
@@ -57,3 +60,36 @@ class SignInForm(forms.Form):
         if user:
             return username
         return None
+
+
+class AvatarForm(forms.Form):
+    avatar = forms.ImageField(widget=forms.ClearableFileInput())
+
+    class Meta:
+        model = Profile
+        fields = ['avatar']
+
+
+class UpdateProfileInfoForm(forms.Form):
+    username = forms.CharField(min_length=3, max_length=50, required=False)
+    name = forms.CharField(min_length=2, max_length=100, label="Name", required=False)
+    email = forms.EmailField(label="Email", required=False)
+    password1 = forms.CharField(label='Password', required=False, widget=forms.PasswordInput)
+    avatar = forms.ImageField(widget=forms.ClearableFileInput, required=False)
+
+    def change_profile_data(self, profile):
+        try:
+            if self.cleaned_data['username']:
+                profile.username = self.cleaned_data['username']
+            if self.cleaned_data['name']:
+                profile.name = self.cleaned_data['name']
+            if self.cleaned_data['email']:
+                profile.email = self.cleaned_data['email']
+            if self.cleaned_data['password1']:
+                profile.user.password = self.password1
+            if self.cleaned_data['avatar']:
+                profile.avatar = self.files['avatar']
+            profile.save()
+            return profile
+        except Exception as ex:
+            return ValueError('Some value is wrong')

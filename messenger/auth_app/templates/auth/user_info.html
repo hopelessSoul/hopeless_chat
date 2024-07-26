@@ -1,0 +1,30 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+{{ user.username }} info
+{% endblock %}
+
+{% block body %}
+<div>
+  {% if user.is_anonymous %}
+  <h2>User is anonymous</h2>
+  {% else %}
+  {% if profile.avatar %}
+  <img src="{{ profile.avatar.url }}" width="200" height="200">
+  {% endif %}
+  <h2>{{ profile.name }}</h2>
+  <p>Username: {{ profile.username }}</p>
+  <p>Email: {{ profile.email }}</p>
+  {% if friends %}
+  <h4>Friends</h4>
+  {% for friend in friends %}
+  <a href="{% url 'auth_app:profile_info' pk=friend.profile.pk %}"><code>{{ friend.username }}</code></a> <a
+        href="{% url 'auth_app:delete_friend' pk=friend.profile.pk %}">Delete this friend</a>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+  <a href="{% url 'auth_app:friends_requests' %}"><p>Friend requests</p></a>
+  <a href="{% url 'auth_app:change_data' %}">Change your profile data</a>
+  <a href="{% url 'auth_app:users_list' %}"><p>Users list</p></a>
+</div>
+{% endblock %}

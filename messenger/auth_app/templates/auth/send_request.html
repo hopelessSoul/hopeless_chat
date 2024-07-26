@@ -1,17 +1,14 @@
 {% extends 'auth/base.html' %}
 
 {% block title %}
-Sign In
 {% endblock %}
 
 {% block body %}
 <div>
-  <h1>Sign In</h1>
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit"> Sign In </button>
-    <a href="{% url 'auth_app:sign_up' %}"><p>Sign up</p></a>
+    <p>Do you want to add {{ user.username }} to your friends list?</p>
+    <button type="submit">Add</button>
   </form>
 </div>
 {% endblock %}

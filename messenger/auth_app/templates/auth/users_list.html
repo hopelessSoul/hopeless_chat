@@ -1,0 +1,13 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Users List
+{% endblock %}
+
+{% block body %}
+<div>
+  {% for profile in profiles %}
+    <a href="{% url 'auth_app:profile_info' pk=profile.pk %}"><p>{{ profile.username }}</p></a>
+  {% endfor %}
+</div>
+{% endblock %}
